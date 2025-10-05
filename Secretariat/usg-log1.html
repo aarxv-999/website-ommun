@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secretariat Member - Open Minds MUN 2025</title>
+    <!-- Updated CSS path to go up one directory -->
+    <link rel="stylesheet" href="../style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Background Image -->
+    <div class="background-overlay"></div>
+    
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-content">
+            <nav class="nav-container">
+                <div class="logo-section">
+                    <img src="../logo.png" alt="Open Minds MUN Logo" class="logo">
+                </div>
+                
+                <div class="center-title">
+                    <h1 class="main-header-title">Open Minds MUN</h1>
+                    <!-- Added subtitle with tagline and dates -->
+                    <p class="header-subtitle">Initiate. Innovate. Inspire. | 24, 25, 26 October, 2025</p>
+                </div>
+                
+                <!-- Replaced nav-links with hamburger menu button -->
+                <div class="hamburger-container">
+                    <button class="hamburger-btn" id="hamburger-btn" aria-label="Toggle navigation menu">
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
+                    </button>
+                </div>
+            </nav>
+        </div>
+        
+        <!-- Added slide-out navigation menu -->
+        <div class="mobile-nav" id="mobile-nav">
+            <div class="mobile-nav-content">
+                <a href="../home.html" class="mobile-nav-link">Home</a>
+                <a href="../committees.html" class="mobile-nav-link">Committees</a>
+                <a href="../secretariat.html" class="mobile-nav-link active">Secretariat</a>
+                <a href="../register.html" class="mobile-nav-link">Register</a>
+                <a href="../resources.html" class="mobile-nav-link">Resources</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="placeholder-main">
+        <div class="placeholder-content profile-layout">
+            <!-- Added profile structure with image, name, role, and description -->
+            <div class="profile-image-container">
+                <img src="sec-pics/usg-log1.svg" alt="Secretariat Member" class="profile-photo">
+            </div>
+            <h1 class="profile-name">AYAAN IMRAN</h1>
+            <p class="profile-role">USG OF LOGISTICS</p>
+            <p class="profile-description">
+                Ayaan Bin Imran runs on four main fuels which are cricket, Brooklyn Nine-Nine, random car facts no one asked for but somehow always hears, and spending time with friends and family. One moment, he’s yelling at the TV during a tense cricket match like the players might actually listen. The next, he’s slipping in a Jake Peralta quote so perfectly timed it feels scripted, or giving a passionate TED Talk on why a certain car is “a masterpiece” as if he built it in his garage. Hanging out with him is like watching smth chaotic, hilarious, and impossible to switch off, all at once
+            </p>
+        </div>
+    </main>
+   <section class="return-to-secretariat">
+        <a href="../secretariat.html" class="return-btn">
+            <span class="return-arrow">←</span>
+            <span>Return to Secretariat</span>
+        </a>
+    </section>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-cta" role="group" aria-label="Contact and social">
+                <!-- Updated email address and added copy functionality -->
+                <div class="footer-btn footer-btn--email" onclick="copyToClipboard('openmindsmun@dsr.edu.in', this)">
+                    <!-- Updated image paths to go up one directory -->
+                    <img src="../email.png" alt="" class="footer-btn-icon" aria-hidden="true">
+                    <span class="footer-btn-text">openmindsmun@dsr.edu.in</span>
+                    <div class="copy-notification">Copied!</div>
+                </div>
+                <a class="footer-btn footer-btn--instagram" href="https://www.instagram.com/openmindsmun/" target="_blank" rel="noopener">
+                    <img src="../instagram.png" alt="" class="footer-btn-icon" aria-hidden="true">
+                    <span class="footer-btn-text">@openmindsmun</span>
+                </a>
+                <!-- Added copy functionality to phone number -->
+                <div class="footer-btn footer-btn--phone" onclick="copyToClipboard('+91 7670907309', this)">
+                    <img src="../telephone.png" alt="" class="footer-btn-icon" aria-hidden="true">
+                    <div class="footer-btn-contact">
+                        <span class="footer-btn-text">Ms. Fauzia Shamim Siddiqui</span>
+                        <span class="footer-btn-phone">+91 7670907309</span>
+                    </div>
+                    <div class="copy-notification">Copied!</div>
+                </div>
+            </div>
+
+            <div class="footer-map">
+                <div class="map-embed">
+                    <iframe
+                      title="Open Minds MUN Location"
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.523089483313!2d78.26589957680139!3d17.434660201438408!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcbec5378f9d111%3A0x867392f3f0d8b0b1!2sBirla%20Open%20Minds%20International%20School!5e0!3m2!1sen!2sin!4v1756826921629!5m2!1sen!2sin"
+                      loading="lazy"
+                      referrerpolicy="no-referrer-when-downgrade"
+                      style="border:0;"
+                      allowfullscreen
+                    ></iframe>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Updated script path to go up one directory -->
+    <script src="../script.js"></script>
+    <script>
+        function copyToClipboard(text, element) {
+            navigator.clipboard.writeText(text).then(() => {
+                const notification = element.querySelector('.copy-notification');
+                
+                if (notification) {
+                    notification.classList.add('show');
+                    setTimeout(() => {
+                        notification.classList.remove('show');
+                    }, 2000);
+                }
+            }).catch(err => {
+                console.error('Failed to copy text:', err);
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                const notification = element.querySelector('.copy-notification');
+                if (notification) {
+                    notification.classList.add('show');
+                    setTimeout(() => {
+                        notification.classList.remove('show');
+                    }, 2000);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
