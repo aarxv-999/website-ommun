@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Navigate to the corresponding committee page
         if (committee) {
-          window.location.href = `${committee}.html`
+          window.location.href = `committees/${committee}.html`
         } else {
           console.warn("No data-committee found for this card")
         }
