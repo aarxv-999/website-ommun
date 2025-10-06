@@ -49,7 +49,6 @@ body::before {
   border-bottom: 1px solid rgba(223, 195, 111, 0.2);
 }
 
-/* Removed max-width and made header content span full width */
 .header-content {
   width: 100%;
   padding: 0 2rem;
@@ -57,7 +56,6 @@ body::before {
 
 /* ===== LUXURY NAVIGATION STYLES ===== */
 .nav-container {
-  /* Full width layout with elements at screen edges */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -71,7 +69,6 @@ body::before {
   display: flex;
   align-items: center;
   transition: transform 0.3s ease;
-  /* Logo positioned at left edge */
   flex: 0 0 auto;
   min-width: 200px;
 }
@@ -83,21 +80,17 @@ body::before {
   background-color: transparent !important;
   object-fit: contain;
   transition: all 0.3s ease;
-  /* Remove border-radius and box-shadow that create square appearance */
 }
 
 .logo:hover {
-  /* Only scale the logo, no box-shadow or border effects */
   transform: scale(1.05);
   filter: brightness(1.1);
 }
 
-/* Ensure logo section has no background */
 .logo-section {
   background: transparent;
 }
 
-/* Fixed center title positioning */
 .center-title {
   position: absolute;
   left: 50%;
@@ -119,10 +112,9 @@ body::before {
   text-shadow: 0 0 30px rgba(223, 195, 111, 0.3);
   letter-spacing: 0.02em;
   text-align: center;
-  margin-bottom: 0.5rem; /* Added margin for spacing with subtitle */
+  margin-bottom: 0.5rem;
 }
 
-/* Added header subtitle styling */
 .header-subtitle {
   font-family: "DM Sans", sans-serif;
   font-size: clamp(0.9rem, 2vw, 1.1rem);
@@ -164,7 +156,6 @@ body::before {
   background: rgba(223, 195, 111, 0.1);
 }
 
-/* Added menu label for better UX */
 .hamburger-btn::after {
   content: "MENU";
   font-family: "DM Sans", sans-serif;
@@ -193,7 +184,6 @@ body::before {
   display: block;
 }
 
-/* Made lines slightly more horizontal by default for better recognition */
 .hamburger-btn .hamburger-line {
   transform: rotate(75deg);
 }
@@ -204,7 +194,6 @@ body::before {
   box-shadow: 0 0 15px rgba(223, 195, 111, 0.5);
 }
 
-/* Completely rewritten X button transformation for better visibility */
 .hamburger-btn.active .hamburger-line {
   background: #dfc36f !important;
   box-shadow: 0 0 15px rgba(223, 195, 111, 0.5) !important;
@@ -224,7 +213,6 @@ body::before {
   transform: rotate(-45deg) translateY(-9px) !important;
 }
 
-/* Hide menu label when active */
 .hamburger-btn.active::after {
   opacity: 0;
   transform: translateY(5px);
@@ -311,7 +299,6 @@ body::before {
   display: flex;
   gap: 2rem;
   align-items: center;
-  /* Navigation positioned at right edge */
   flex: 0 0 auto;
   min-width: 200px;
   justify-content: flex-end;
@@ -326,7 +313,6 @@ body::before {
 }
 
 .nav-link {
-  /* Updated font family to DM Sans */
   font-family: "DM Sans", sans-serif;
   font-size: 1rem;
   font-weight: 500;
@@ -399,7 +385,6 @@ body::before {
 }
 
 /* ===== LUXURY HOME PAGE STYLES ===== */
-/* Updated to dark minimalistic design instead of white backgrounds */
 .luxury-main {
   min-height: 100vh;
   padding: 6rem 0;
@@ -410,36 +395,39 @@ body::before {
 .home-stack {
   display: flex;
   flex-direction: column;
-  gap: 2rem; /* adjust here for more/less space */
+  gap: 2rem;
 }
 
+.luxury-main .home-stack .confpres-luxury-section,
 .luxury-main .home-stack .secgen-luxury-section,
-.luxury-main .home-stack .countdown-section,
-.luxury-main .home-stack .hero-section {
-  margin: 0 auto; /* was 0; allow max-width + auto margins to center */
+.luxury-main .home-stack .countdown-section {
+  margin: 0 auto;
 }
 
-.hero-section {
+/* ===== CONFERENCE PRESIDENT SECTION (Image on RIGHT) ===== */
+.confpres-luxury-section {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
-  margin-bottom: 0; /* was 8rem */
-  animation: fadeInUp 0.8s ease-out;
+  animation: fadeInUp 0.8s ease-out 0.2s both;
 }
 
-.hero-container {
-  text-align: center;
+.confpres-luxury-container {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 6rem;
+  align-items: start;
   background: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(20px);
   border-radius: 24px;
-  padding: 6rem 4rem;
+  padding: 4rem;
   box-shadow: 0 25px 80px rgba(223, 195, 111, 0.1);
   border: 1px solid rgba(223, 195, 111, 0.3);
   position: relative;
   overflow: hidden;
 }
 
-.hero-container::before {
+.confpres-luxury-container::before {
   content: "";
   position: absolute;
   top: 0;
@@ -447,53 +435,77 @@ body::before {
   width: 100%;
   height: 100%;
   background: linear-gradient(90deg, transparent, rgba(223, 195, 111, 0.1), transparent);
-  animation: shimmerSlow 4s ease-in-out infinite;
+  animation: shimmerSlow 4s ease-in-out infinite 1s;
+  pointer-events: none;
 }
 
-.hero-title {
+.confpres-image-container {
+  position: sticky;
+  top: 2rem;
+}
+
+.confpres-luxury-photo {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  transition: all 0.4s ease;
+  border: 2px solid rgba(223, 195, 111, 0.3);
+}
+
+.confpres-luxury-photo:hover {
+  transform: scale(1.02);
+  box-shadow: 0 25px 80px rgba(223, 195, 111, 0.2);
+  border-color: rgba(223, 195, 111, 0.5);
+}
+
+.confpres-content-container {
+  padding-top: 1rem;
+}
+
+.confpres-luxury-title {
   font-family: "Playfair Display", serif;
-  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 700;
   color: #ffffff;
   margin-bottom: 3rem;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
   position: relative;
 }
 
-.hero-title::after {
+.confpres-luxury-title::after {
   content: "";
   position: absolute;
   bottom: -1rem;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
+  left: 0;
+  width: 60px;
   height: 3px;
-  background: linear-gradient(90deg, #dfc36f, #f4e4a6, #dfc36f);
+  background: linear-gradient(90deg, #dfc36f, #f4e4a6);
   border-radius: 2px;
 }
 
-.hero-content {
-  max-width: 800px;
-  margin: 0 auto;
+.confpres-luxury-text {
+  font-family: "DM Sans", sans-serif;
+  color: rgba(255, 255, 255, 0.9);
 }
 
-.hero-text {
-  font-family: "DM Sans", sans-serif;
-  font-size: 1.2rem;
+.confpres-luxury-text p {
+  font-size: 1.1rem;
   line-height: 1.8;
-  color: rgba(255, 255, 255, 0.9);
   margin-bottom: 2rem;
   font-weight: 400;
-  text-align: left;
+  text-align: justify;
 }
 
-.hero-text:last-child {
-  margin-bottom: 0;
+.confpres-luxury-text p:last-of-type {
+  margin-bottom: 3rem;
 }
 
+/* ===== SECRETARY GENERAL SECTION (Image on LEFT) ===== */
 .secgen-luxury-section {
-  max-width: 1200px; /* was 1400px */
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
   animation: fadeInUp 0.8s ease-out 0.3s both;
@@ -882,7 +894,7 @@ body::before {
 /* Luxury dark countdown styles (Home) */
 .countdown-section {
   max-width: 1200px;
-  margin: 0 auto; /* was 0 auto 6rem auto */
+  margin: 0 auto;
   padding: 0 2rem;
   animation: fadeInUp 0.8s ease-out 0.15s both;
 }
@@ -983,7 +995,25 @@ body::before {
   .countdown-grid {
     grid-template-columns: repeat(2, minmax(120px, 1fr));
   }
+  
+  .confpres-luxury-container,
+  .secgen-luxury-container {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  
+  .confpres-image-container,
+  .secgen-image-container {
+    position: relative;
+    top: 0;
+  }
+  
+  .confpres-luxury-photo,
+  .secgen-luxury-photo {
+    height: 400px;
+  }
 }
+
 @media (max-width: 520px) {
   .countdown-grid {
     grid-template-columns: 1fr 1fr;
@@ -994,6 +1024,16 @@ body::before {
   }
   .time-value {
     font-size: clamp(1.8rem, 8vw, 2.4rem);
+  }
+  
+  .confpres-luxury-container,
+  .secgen-luxury-container {
+    padding: 2rem;
+  }
+  
+  .confpres-luxury-photo,
+  .secgen-luxury-photo {
+    height: 300px;
   }
 }
 
@@ -1056,7 +1096,6 @@ body::before {
   width: 100%;
   max-width: 600px;
   height: auto;
-  /* Changed from cover to contain so full image is visible vertically */
   object-fit: contain;
   border-radius: 12px;
   box-shadow: 0 15px 40px rgba(223, 195, 111, 0.3);
@@ -1131,7 +1170,6 @@ body::before {
   color: #dfc36f;
 }
 
-/* Matrix button for committee placeholder */
 .matrix-btn {
   display: inline-block;
   padding: 0.5rem 1rem;
@@ -1144,6 +1182,7 @@ body::before {
   font-size: 0.95rem;
   transition: all 0.25s ease;
 }
+
 .matrix-btn:hover {
   background: #dfc36f;
   color: #000;
@@ -1151,18 +1190,19 @@ body::before {
   box-shadow: 0 8px 20px rgba(223, 195, 111, 0.25);
 }
 
-/* Executive Board section */
 .eb-info {
   margin-top: 2.5rem;
 }
+
 .eb-title {
   font-family: "Playfair Display", serif;
   font-size: 1.5rem;
   font-weight: 600;
   color: #dfc36f;
   margin-bottom: 1.25rem;
-  text-align: center; /* Center the Executive Board section heading */
+  text-align: center;
 }
+
 .eb-grid {
   display: flex;
   gap: 1.25rem;
@@ -1170,6 +1210,7 @@ body::before {
   justify-content: center;
   flex-wrap: wrap;
 }
+
 .eb-card {
   position: relative;
   width: 260px;
@@ -1181,16 +1222,19 @@ body::before {
   box-shadow: 0 10px 30px rgba(223, 195, 111, 0.12);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
+
 .eb-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 16px 40px rgba(223, 195, 111, 0.22);
 }
+
 .eb-photo {
   width: 100%;
   height: 100%;
   object-fit: cover;
   filter: saturate(0.9) contrast(1.05);
 }
+
 .eb-overlay {
   position: absolute;
   inset: auto 0 0 0;
@@ -1204,9 +1248,11 @@ body::before {
   opacity: 0;
   transition: opacity 0.25s ease;
 }
+
 .eb-card:hover .eb-overlay {
   opacity: 1;
 }
+
 .eb-name {
   font-family: "Playfair Display", serif;
   font-weight: 700;
@@ -1214,6 +1260,7 @@ body::before {
   color: #ffffff;
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
+
 .eb-role {
   font-family: "DM Sans", sans-serif;
   font-weight: 500;
@@ -1221,7 +1268,6 @@ body::before {
   color: #dfc36f;
 }
 
-/* Responsive: stack EB cards on small screens */
 @media (max-width: 700px) {
   .eb-grid {
     justify-content: center;
@@ -1254,7 +1300,6 @@ body::before {
   animation: fadeInUp 0.8s ease-out;
 }
 
-/* Added profile-specific styles for member profile page */
 .placeholder-content.profile-layout {
   max-width: 700px;
   padding: 3.5rem;
@@ -1406,7 +1451,6 @@ body::before {
 }
 
 /* ===== STATIC FOOTER ===== */
-/* Changed from scroll-triggered footer to static footer */
 .footer {
   position: relative;
   width: 100%;
@@ -1419,7 +1463,6 @@ body::before {
   margin-top: auto;
 }
 
-/* Updated footer inner container for proper layout */
 .footer-inner {
   max-width: 1400px;
   margin: 0 auto;
@@ -1430,7 +1473,6 @@ body::before {
   align-items: center;
 }
 
-/* Improved contact section styling */
 .footer-cta {
   display: flex;
   flex-direction: column;
@@ -1485,13 +1527,11 @@ body::before {
 .footer-btn-icon {
   width: 24px;
   height: 24px;
-  /* Inverted icons to white for better visibility */
   filter: brightness(0) invert(1);
   transition: filter 0.3s ease;
 }
 
 .footer-btn:hover .footer-btn-icon {
-  /* Enhanced brightness on hover for inverted icons */
   filter: brightness(0) invert(1) brightness(1.3);
 }
 
@@ -1499,7 +1539,6 @@ body::before {
   font-weight: 500;
 }
 
-/* Added styles for phone contact with name and number */
 .footer-btn-contact {
   display: flex;
   flex-direction: column;
@@ -1516,7 +1555,6 @@ body::before {
   color: #dfc36f;
 }
 
-/* Enhanced Google Maps embed styling */
 .footer-map {
   display: flex;
   justify-content: center;
@@ -1556,7 +1594,6 @@ body::before {
   filter: grayscale(0) contrast(1.2);
 }
 
-/* Responsive footer styles */
 @media (max-width: 1024px) {
   .footer-inner {
     grid-template-columns: 1fr;
@@ -1572,48 +1609,7 @@ body::before {
   .map-embed {
     max-width: 600px;
   }
-}
-
-@media (max-width: 768px) {
-  .footer-nav {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .footer-links {
-    gap: 1rem;
-  }
-
-  .footer-text {
-    font-size: 0.85rem;
-  }
-
-  /* Added mobile responsive styles for very small screens */
-  .welcome-content,
-  .secgen-content {
-    padding: 1.5rem;
-  }
-
-  .welcome-text,
-  .secgen-letter {
-    font-size: 1rem;
-    text-align: left;
-  }
-
-  .secgen-title {
-    font-size: 1.8rem;
-  }
-
-  .secgen-photo {
-    width: 200px;
-    height: 250px;
-  }
-}
-
-/* ===== RESPONSIVE DESIGN ===== */
-
-/* Tablet View */
-@media (max-width: 1024px) {
+  
   .committees-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
@@ -1651,7 +1647,6 @@ body::before {
     min-width: 150px;
   }
 
-  /* Added tablet responsive styles for home page */
   .secgen-content {
     gap: 3rem;
   }
@@ -1664,7 +1659,6 @@ body::before {
     height: 350px;
   }
 
-  /* Resources page: no removals, only ensuring minor spacing harmony */
   .resources-section .main-title,
   .resources-section .subtitle {
     text-align: center;
@@ -1675,162 +1669,172 @@ body::before {
     margin-bottom: 6rem;
   }
 
-  /* Restore comfortable space above footer on Committees page only */
   .main-content {
-    margin-bottom: 6rem; /* comfortable space before the footer */
+    margin-bottom: 6rem;
   }
 
-  /* Base safety to avoid horizontal scroll on small screens */
   html,
   body {
     overflow-x: hidden;
   }
 
-  /* Header + Nav: stack, center, smaller sizes */
   .header {
     padding: 8px 12px;
   }
+  
   .nav-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 8px;
   }
+  
   .logo {
     height: 36px;
     width: auto;
   }
+  
   .center-title .main-header-title {
     font-size: 18px;
     text-align: center;
   }
+  
   .nav-links {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
     justify-content: center;
   }
+  
   .nav-link {
     font-size: 14px;
     padding: 6px 10px;
   }
+  
   .page-header {
     padding: 12px 0;
   }
+  
   .main-title {
     font-size: 22px;
     text-align: center;
   }
+  
   .subtitle {
     font-size: 14px;
     text-align: center;
   }
 
-  /* General spacing */
   .luxury-main,
   .main-content,
   .committee-main,
   .secretariat-main {
     padding: 16px;
   }
+  
   .home-stack {
     gap: 24px;
   }
 
-  /* Secretary General section (home) */
+  .confpres-luxury-container,
   .secgen-luxury-container {
     display: flex;
     flex-direction: column;
     gap: 16px;
   }
+  
+  .confpres-luxury-photo,
   .secgen-luxury-photo {
     width: 100%;
     height: auto;
     object-fit: cover;
     max-height: 280px;
   }
+  
+  .confpres-luxury-title,
   .secgen-luxury-title {
     font-size: 20px;
   }
+  
+  .confpres-luxury-text,
   .secgen-luxury-text {
     font-size: 14px;
     line-height: 1.6;
   }
 
-  /* Countdown (home) */
   .countdown-title {
     font-size: 18px;
     text-align: center;
   }
+  
   .countdown-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
   }
+  
   .time-value {
     font-size: 24px;
   }
+  
   .time-label {
     font-size: 12px;
   }
 
-  /* Hero (home) */
-  .hero-title {
-    font-size: 24px;
-    text-align: center;
-  }
-  .hero-content {
-    font-size: 14px;
-  }
-
-  /* Committees listing */
   .committees-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 16px;
   }
+  
   .committee-image img {
     width: 100%;
     height: auto;
     display: block;
   }
+  
   .committee-overlay .committee-title {
     font-size: 18px;
   }
+  
   .committee-overlay .committee-desc {
     font-size: 12px;
   }
 
-  /* Committee details */
   .committee-hero-image {
     width: 100%;
     height: auto;
   }
+  
   .eb-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 12px;
   }
+  
   .eb-photo {
     width: 100%;
     height: auto;
   }
 
-  /* Resources grid */
   .resources-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 12px;
   }
+  
   .resource-card {
     padding: 12px;
   }
+  
   .resource-title {
     font-size: 18px;
   }
+  
   .resource-desc {
     font-size: 14px;
   }
+  
   .resource-btn {
     display: inline-block;
     margin-top: 8px;
@@ -1838,25 +1842,26 @@ body::before {
     font-size: 14px;
   }
 
-  /* Register page */
   .register-content .registration-card {
     padding: 16px;
   }
+  
   .registration-buttons {
     display: grid;
     grid-template-columns: 1fr;
     gap: 10px;
   }
+  
   .register-btn {
     display: block;
     width: 100%;
     text-align: center;
   }
 
-  /* Secretariat grids collapse to single column */
   .secretariat-content {
     gap: 16px;
   }
+  
   .secretariat-row,
   .secretariat-row.two-columns,
   .secretariat-row.three-columns,
@@ -1865,33 +1870,37 @@ body::before {
     grid-template-columns: 1fr;
     gap: 16px;
   }
+  
   .member-card {
     width: 100%;
   }
 
-  /* Footer stacks and map becomes fluid */
   .footer-inner {
     display: grid;
     grid-template-columns: 1fr;
     gap: 16px;
     padding: 16px;
   }
+  
   .footer-cta {
     display: grid;
     grid-template-columns: 1fr;
     gap: 10px;
     justify-items: center;
   }
+  
   .footer-btn {
     width: 100%;
     max-width: 320px;
     justify-content: center;
   }
+  
   .footer-map .map-embed {
     position: relative;
     width: 100%;
     aspect-ratio: 16 / 9;
   }
+  
   .footer-map .map-embed iframe {
     position: absolute;
     inset: 0;
@@ -1899,10 +1908,10 @@ body::before {
     height: 100%;
   }
 
-  /* Spacers and background performance */
   .page-spacer {
     height: 32px;
   }
+  
   .background-overlay {
     background-attachment: scroll;
     background-position: center;
@@ -1910,22 +1919,40 @@ body::before {
   }
 }
 
-/* Tiny phones */
-@media (max-width: 400px) {
-  .center-title .main-header-title {
-    font-size: 16px;
-  }
-  .nav-link {
-    font-size: 12px;
-    padding: 6px 8px;
-  }
-  .time-value {
-    font-size: 20px;
-  }
-}
-
-/* Mobile responsive adjustments */
 @media (max-width: 768px) {
+  .footer-nav {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .footer-links {
+    gap: 1rem;
+  }
+
+  .footer-text {
+    font-size: 0.85rem;
+  }
+
+  .welcome-content,
+  .secgen-content {
+    padding: 1.5rem;
+  }
+
+  .welcome-text,
+  .secgen-letter {
+    font-size: 1rem;
+    text-align: left;
+  }
+
+  .secgen-title {
+    font-size: 1.8rem;
+  }
+
+  .secgen-photo {
+    width: 200px;
+    height: 250px;
+  }
+  
   .hamburger-container {
     min-width: 120px;
   }
@@ -1941,6 +1968,10 @@ body::before {
   .mobile-nav-link {
     font-size: 1.1rem;
     padding: 0.8rem 1.2rem;
+  }
+  
+  .home-stack {
+    gap: 1.25rem;
   }
 }
 
@@ -1965,14 +1996,27 @@ body::before {
   }
 }
 
-/* Hide original nav-links */
+@media (max-width: 400px) {
+  .center-title .main-header-title {
+    font-size: 16px;
+  }
+  
+  .nav-link {
+    font-size: 12px;
+    padding: 6px 8px;
+  }
+  
+  .time-value {
+    font-size: 20px;
+  }
+}
+
 .nav-links {
   display: none;
 }
 
-/* ===== NEW STYLES ===== */
-.luxury-main .home-stack .hero-container,
 .luxury-main .home-stack .countdown-container,
+.luxury-main .home-stack .confpres-luxury-container,
 .luxury-main .home-stack .secgen-luxury-container {
   background: rgba(0, 0, 0, 0.55);
   border: 1px solid rgba(223, 195, 111, 0.18);
@@ -1981,9 +2025,9 @@ body::before {
   backdrop-filter: blur(6px);
 }
 
+.luxury-main .home-stack .confpres-luxury-section,
 .luxury-main .home-stack .secgen-luxury-section,
-.luxury-main .home-stack .countdown-section,
-.luxury-main .home-stack .hero-section {
+.luxury-main .home-stack .countdown-section {
   margin-left: auto;
   margin-right: auto;
 }
@@ -1997,13 +2041,12 @@ body::before {
   max-width: 900px;
   margin-left: auto;
   margin-right: auto;
-  justify-items: center; /* center each card within its column */
+  justify-items: center;
 }
 
-/* compact each resource card for a less bulky look */
 .resource-card {
-  max-width: 360px; /* reduce card width */
-  width: 100%; /* allow full width within max */
+  max-width: 360px;
+  width: 100%;
   background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(14px);
   border: 1px solid rgba(223, 195, 111, 0.25);
@@ -2087,7 +2130,6 @@ body::before {
   }
 }
 
-/* Added new shimmer animation for luxury sections */
 @keyframes shimmerSlow {
   0% {
     left: -100%;
@@ -2123,7 +2165,6 @@ body::before {
   animation-delay: 0.8s;
 }
 
-/* Responsive Design for Secretariat */
 @media (max-width: 1024px) {
   .secretariat-row.four-columns {
     grid-template-columns: repeat(2, 1fr);
@@ -2162,13 +2203,6 @@ body::before {
   }
 }
 
-@media (max-width: 768px) {
-  .home-stack {
-    gap: 1.25rem;
-  }
-}
-
-/* Added copy notification styles for clipboard functionality */
 .copy-notification {
   position: absolute;
   top: -50px;
@@ -2196,7 +2230,6 @@ body::before {
   transform: translateX(-50%) translateY(0);
 }
 
-/* Ensure footer buttons have relative positioning for notifications */
 .footer-btn {
   position: relative;
   cursor: pointer;
@@ -2283,4 +2316,171 @@ body::before {
     font-size: 0.95rem;
   }
 }
-/* END OF RETURN BUTTON STYLES */
+
+/* ===== REGISTER PAGE STYLES ===== */
+.register-content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.registration-card {
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  padding: 4rem 3rem;
+  box-shadow: 0 25px 80px rgba(223, 195, 111, 0.1);
+  border: 1px solid rgba(223, 195, 111, 0.3);
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.registration-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(223, 195, 111, 0.1), transparent);
+  animation: shimmerSlow 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.priority-title {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  color: #dfc36f;
+  margin-bottom: 1rem;
+  letter-spacing: 0.05em;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.deadline-text {
+  font-family: "DM Sans", sans-serif;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 3rem;
+  letter-spacing: 0.05em;
+}
+
+.registration-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.register-btn {
+  font-family: "DM Sans", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 1.25rem 2.5rem;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.register-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.register-btn:hover::before {
+  left: 100%;
+}
+
+.primary-btn {
+  background: #dfc36f;
+  color: #000;
+  border: 2px solid #dfc36f;
+  box-shadow: 0 8px 25px rgba(223, 195, 111, 0.3);
+}
+
+.primary-btn:hover {
+  background: #e8d082;
+  border-color: #e8d082;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(223, 195, 111, 0.5);
+}
+
+.secondary-btn {
+  background: rgba(223, 195, 111, 0.1);
+  color: #dfc36f;
+  border: 2px solid #dfc36f;
+  backdrop-filter: blur(10px);
+}
+
+.secondary-btn:hover {
+  background: rgba(223, 195, 111, 0.2);
+  border-color: #e8d082;
+  color: #e8d082;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(223, 195, 111, 0.3);
+}
+
+@media (max-width: 768px) {
+  .registration-card {
+    padding: 3rem 2rem;
+  }
+
+  .priority-title {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .deadline-text {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .registration-buttons {
+    gap: 1rem;
+  }
+
+  .register-btn {
+    padding: 1rem 2rem;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .register-content {
+    padding: 0 1rem;
+  }
+
+  .registration-card {
+    padding: 2rem 1.5rem;
+    border-radius: 16px;
+  }
+
+  .priority-title {
+    font-size: 1.75rem;
+  }
+
+  .deadline-text {
+    font-size: 0.9rem;
+  }
+
+  .register-btn {
+    padding: 0.875rem 1.5rem;
+    font-size: 0.875rem;
+  }
+}

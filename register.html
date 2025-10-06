@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Fixed all HTML comments to use proper syntax -->
     <!-- Background Image -->
     <div class="background-overlay"></div>
     
@@ -20,7 +21,9 @@
                 </div>
                 
                 <div class="center-title">
-                    <h1 class="main-header-title">Open Minds MUN 2025</h1>
+                    <h1 class="main-header-title">Open Minds MUN</h1>
+                    <!-- Added subtitle with tagline and dates -->
+                    <p class="header-subtitle">Initiate. Innovate. Inspire. | 24, 25, 26 October, 2025</p>
                 </div>
                 
                 <!-- Replaced nav-links with hamburger menu button -->
@@ -48,26 +51,23 @@
 
     <!-- Main Content -->
     <main class="main-content">
-        <!-- Replaced placeholder content with registration information -->
         <div class="register-content">
             <div class="registration-card">
-                <h2 class="priority-title">PRIORITY ROUND</h2>
-                <p class="deadline-text">OPEN UNTIL 32 AUGUST, 11:59 PM</p>
+                <h2 class="priority-title">REGISTRATION</h2>
+                <p class="deadline-text">FIRST ROUND APPLICATIONS ARE LIVE!</p>
                 
                 <div class="registration-buttons">
-                    <a href="https://www.youtube.com" class="register-btn primary-btn">REGISTER NOW!</a>
-                    <a href="https://www.youtube.com" class="register-btn secondary-btn">VIEW ALLOCATION MATRIX</a>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeQW_IUB0W5jzgqIHb609pBXeo3-YYvo5-e7Ghb_PkmL4H7wA/viewform" class="register-btn primary-btn">REGISTER NOW!</a>
+                    <a href="https://docs.google.com/spreadsheets/d/1TGI5-Rxbzetn5HeHOgnzyK97YHjDU_QCDWKOUMuulCU/edit?gid=700046545#gid=700046545" class="register-btn secondary-btn">VIEW ALLOCATION MATRIX</a>
                 </div>
             </div>
         </div>
-        <!-- </CHANGE> -->
     </main>
 
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-inner">
             <div class="footer-cta" role="group" aria-label="Contact and social">
-                <!-- Updated email address and added copy functionality -->
                 <div class="footer-btn footer-btn--email" onclick="copyToClipboard('openmindsmun@dsr.edu.in', this)">
                     <img src="email.png" alt="" class="footer-btn-icon" aria-hidden="true">
                     <span class="footer-btn-text">openmindsmun@dsr.edu.in</span>
@@ -77,7 +77,6 @@
                     <img src="instagram.png" alt="" class="footer-btn-icon" aria-hidden="true">
                     <span class="footer-btn-text">@openmindsmun</span>
                 </a>
-                <!-- Added copy functionality to phone number -->
                 <div class="footer-btn footer-btn--phone" onclick="copyToClipboard('+91 7670907309', this)">
                     <img src="telephone.png" alt="" class="footer-btn-icon" aria-hidden="true">
                     <div class="footer-btn-contact">
@@ -106,25 +105,16 @@
     <script src="script.js"></script>
     <script>
         function copyToClipboard(text, element) {
-            console.log("[v0] Copy function called with text:", text);
-            console.log("[v0] Element:", element);
-            
             navigator.clipboard.writeText(text).then(() => {
-                console.log("[v0] Text copied successfully");
                 const notification = element.querySelector('.copy-notification');
-                console.log("[v0] Notification element:", notification);
-                
                 if (notification) {
                     notification.classList.add('show');
-                    console.log("[v0] Added show class");
                     setTimeout(() => {
                         notification.classList.remove('show');
-                        console.log("[v0] Removed show class");
                     }, 2000);
                 }
             }).catch(err => {
-                console.error("[v0] Failed to copy text:", err);
-                // Fallback for older browsers
+                console.error('Failed to copy text:', err);
                 const textArea = document.createElement('textarea');
                 textArea.value = text;
                 document.body.appendChild(textArea);
