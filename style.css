@@ -25,7 +25,30 @@ body::before {
   width: 100%;
   height: 100%;
   background: #000 url("bg.png") center / cover fixed no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
   z-index: -2;
+  /* Added will-change for better mobile performance */
+  will-change: transform;
+}
+
+/* Mobile optimization - disable fixed background on mobile for better quality and performance */
+@media (max-width: 768px) {
+  body::before {
+    background-attachment: scroll;
+    background-size: cover;
+    background-position: center;
+  }
+}
+
+/* Extra small devices - ensure background displays properly */
+@media (max-width: 480px) {
+  body::before {
+    background-attachment: scroll;
+    background-size: cover;
+    background-position: center;
+  }
 }
 
 .background-overlay {
@@ -92,16 +115,19 @@ body::before {
 }
 
 .center-title {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 10;
+  position: relative;
+  left: auto;
+  top: auto;
+  transform: none;
+  width: 100%;
+  text-align: center;
+  margin: 0.5rem 0;
+  z-index: 5;
 }
 
 .main-header-title {
   font-family: "Playfair Display", serif;
-  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-size: clamp(1.6rem, 4vw, 2rem);
   font-weight: 700;
   background: linear-gradient(135deg, #dfc36f, #f4e4a6, #dfc36f);
   background-size: 200% 200%;
@@ -218,6 +244,22 @@ body::before {
   transform: translateY(5px);
 }
 
+/* Reposition close button to bottom center when menu is open */
+.hamburger-btn.active {
+  position: fixed;
+  bottom: 2rem;
+  right: 50%;
+  transform: translateX(50%);
+  z-index: 1003;
+  background: rgba(223, 195, 111, 0.1);
+  border: 1px solid rgba(223, 195, 111, 0.3);
+}
+
+.hamburger-btn.active:hover {
+  background: rgba(223, 195, 111, 0.2);
+  border-color: rgba(223, 195, 111, 0.5);
+}
+
 /* Mobile navigation menu styles */
 .mobile-nav {
   position: fixed;
@@ -227,10 +269,30 @@ body::before {
   height: 100vh;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.98) 0%, rgba(0, 0, 0, 0.95) 100%);
   backdrop-filter: blur(20px);
-  z-index: 999;
+  z-index: 1002;
   transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   border-left: 1px solid rgba(223, 195, 111, 0.2);
   box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+.mobile-nav::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.mobile-nav.active::before {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .mobile-nav.active {
@@ -238,10 +300,12 @@ body::before {
 }
 
 .mobile-nav-content {
-  padding: 8rem 2rem 2rem;
+  padding: 22rem 2rem 2rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  height: 100%;
+  overflow-y: auto;
 }
 
 .mobile-nav-link {
@@ -990,53 +1054,6 @@ body::before {
   letter-spacing: 0.02em;
 }
 
-/* Responsive */
-@media (max-width: 900px) {
-  .countdown-grid {
-    grid-template-columns: repeat(2, minmax(120px, 1fr));
-  }
-  
-  .confpres-luxury-container,
-  .secgen-luxury-container {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-  }
-  
-  .confpres-image-container,
-  .secgen-image-container {
-    position: relative;
-    top: 0;
-  }
-  
-  .confpres-luxury-photo,
-  .secgen-luxury-photo {
-    height: 400px;
-  }
-}
-
-@media (max-width: 520px) {
-  .countdown-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 0.9rem;
-  }
-  .time-unit {
-    padding: 1.2rem 0.8rem;
-  }
-  .time-value {
-    font-size: clamp(1.8rem, 8vw, 2.4rem);
-  }
-  
-  .confpres-luxury-container,
-  .secgen-luxury-container {
-    padding: 2rem;
-  }
-  
-  .confpres-luxury-photo,
-  .secgen-luxury-photo {
-    height: 300px;
-  }
-}
-
 /* ===== COMMITTEE PLACEHOLDER PAGE ===== */
 .committee-header {
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 100%) 100%);
@@ -1266,17 +1283,6 @@ body::before {
   font-weight: 500;
   font-size: 0.95rem;
   color: #dfc36f;
-}
-
-@media (max-width: 700px) {
-  .eb-grid {
-    justify-content: center;
-  }
-  .eb-card {
-    width: 100%;
-    max-width: 360px;
-    height: 280px;
-  }
 }
 
 /* ===== PLACEHOLDER PAGE STYLES ===== */
@@ -1594,423 +1600,6 @@ body::before {
   filter: grayscale(0) contrast(1.2);
 }
 
-@media (max-width: 1024px) {
-  .footer-inner {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-    padding: 2.5rem 2rem;
-    text-align: center;
-  }
-
-  .footer-cta {
-    align-items: center;
-  }
-
-  .map-embed {
-    max-width: 600px;
-  }
-  
-  .committees-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-  }
-
-  .back-button {
-    position: relative;
-    left: 0;
-    top: 0;
-    transform: none;
-    margin-bottom: 1rem;
-  }
-
-  .committee-page-title {
-    margin-top: 1rem;
-  }
-
-  .nav-container {
-    margin-bottom: 1.5rem;
-  }
-
-  .nav-links {
-    gap: 1rem;
-  }
-
-  .main-header-title {
-    font-size: clamp(1.6rem, 4vw, 2rem);
-  }
-
-  .logo-section {
-    min-width: 150px;
-  }
-
-  .nav-links {
-    min-width: 150px;
-  }
-
-  .secgen-content {
-    gap: 3rem;
-  }
-
-  .secgen-image {
-    flex: 0 0 250px;
-  }
-
-  .secgen-photo {
-    height: 350px;
-  }
-
-  .resources-section .main-title,
-  .resources-section .subtitle {
-    text-align: center;
-  }
-
-  .resources-section {
-    margin-top: 2rem;
-    margin-bottom: 6rem;
-  }
-
-  .main-content {
-    margin-bottom: 6rem;
-  }
-
-  html,
-  body {
-    overflow-x: hidden;
-  }
-
-  .header {
-    padding: 8px 12px;
-  }
-  
-  .nav-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-  }
-  
-  .logo {
-    height: 36px;
-    width: auto;
-  }
-  
-  .center-title .main-header-title {
-    font-size: 18px;
-    text-align: center;
-  }
-  
-  .nav-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    justify-content: center;
-  }
-  
-  .nav-link {
-    font-size: 14px;
-    padding: 6px 10px;
-  }
-  
-  .page-header {
-    padding: 12px 0;
-  }
-  
-  .main-title {
-    font-size: 22px;
-    text-align: center;
-  }
-  
-  .subtitle {
-    font-size: 14px;
-    text-align: center;
-  }
-
-  .luxury-main,
-  .main-content,
-  .committee-main,
-  .secretariat-main {
-    padding: 16px;
-  }
-  
-  .home-stack {
-    gap: 24px;
-  }
-
-  .confpres-luxury-container,
-  .secgen-luxury-container {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-  
-  .confpres-luxury-photo,
-  .secgen-luxury-photo {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    max-height: 280px;
-  }
-  
-  .confpres-luxury-title,
-  .secgen-luxury-title {
-    font-size: 20px;
-  }
-  
-  .confpres-luxury-text,
-  .secgen-luxury-text {
-    font-size: 14px;
-    line-height: 1.6;
-  }
-
-  .countdown-title {
-    font-size: 18px;
-    text-align: center;
-  }
-  
-  .countdown-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
-  }
-  
-  .time-value {
-    font-size: 24px;
-  }
-  
-  .time-label {
-    font-size: 12px;
-  }
-
-  .committees-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-  
-  .committee-image img {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
-  
-  .committee-overlay .committee-title {
-    font-size: 18px;
-  }
-  
-  .committee-overlay .committee-desc {
-    font-size: 12px;
-  }
-
-  .committee-hero-image {
-    width: 100%;
-    height: auto;
-  }
-  
-  .eb-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-  
-  .eb-photo {
-    width: 100%;
-    height: auto;
-  }
-
-  .resources-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-  
-  .resource-card {
-    padding: 12px;
-  }
-  
-  .resource-title {
-    font-size: 18px;
-  }
-  
-  .resource-desc {
-    font-size: 14px;
-  }
-  
-  .resource-btn {
-    display: inline-block;
-    margin-top: 8px;
-    padding: 8px 12px;
-    font-size: 14px;
-  }
-
-  .register-content .registration-card {
-    padding: 16px;
-  }
-  
-  .registration-buttons {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 10px;
-  }
-  
-  .register-btn {
-    display: block;
-    width: 100%;
-    text-align: center;
-  }
-
-  .secretariat-content {
-    gap: 16px;
-  }
-  
-  .secretariat-row,
-  .secretariat-row.two-columns,
-  .secretariat-row.three-columns,
-  .secretariat-row.four-columns {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-  
-  .member-card {
-    width: 100%;
-  }
-
-  .footer-inner {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
-    padding: 16px;
-  }
-  
-  .footer-cta {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 10px;
-    justify-items: center;
-  }
-  
-  .footer-btn {
-    width: 100%;
-    max-width: 320px;
-    justify-content: center;
-  }
-  
-  .footer-map .map-embed {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 16 / 9;
-  }
-  
-  .footer-map .map-embed iframe {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-  }
-
-  .page-spacer {
-    height: 32px;
-  }
-  
-  .background-overlay {
-    background-attachment: scroll;
-    background-position: center;
-    background-size: cover;
-  }
-}
-
-@media (max-width: 768px) {
-  .footer-nav {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .footer-links {
-    gap: 1rem;
-  }
-
-  .footer-text {
-    font-size: 0.85rem;
-  }
-
-  .welcome-content,
-  .secgen-content {
-    padding: 1.5rem;
-  }
-
-  .welcome-text,
-  .secgen-letter {
-    font-size: 1rem;
-    text-align: left;
-  }
-
-  .secgen-title {
-    font-size: 1.8rem;
-  }
-
-  .secgen-photo {
-    width: 200px;
-    height: 250px;
-  }
-  
-  .hamburger-container {
-    min-width: 120px;
-  }
-
-  .mobile-nav {
-    width: 280px;
-  }
-
-  .mobile-nav-content {
-    padding: 6rem 1.5rem 2rem;
-  }
-
-  .mobile-nav-link {
-    font-size: 1.1rem;
-    padding: 0.8rem 1.2rem;
-  }
-  
-  .home-stack {
-    gap: 1.25rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .hamburger-container {
-    min-width: auto;
-  }
-
-  .mobile-nav {
-    width: 100vw;
-  }
-
-  .mobile-nav-content {
-    padding: 5rem 1rem 2rem;
-    align-items: center;
-  }
-
-  .mobile-nav-link {
-    width: 100%;
-    text-align: center;
-    max-width: 300px;
-  }
-}
-
-@media (max-width: 400px) {
-  .center-title .main-header-title {
-    font-size: 16px;
-  }
-  
-  .nav-link {
-    font-size: 12px;
-    padding: 6px 8px;
-  }
-  
-  .time-value {
-    font-size: 20px;
-  }
-}
-
 .nav-links {
   display: none;
 }
@@ -2165,44 +1754,6 @@ body::before {
   animation-delay: 0.8s;
 }
 
-@media (max-width: 1024px) {
-  .secretariat-row.four-columns {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-  }
-
-  .secretariat-row.three-columns {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .secretariat-row.two-columns,
-  .secretariat-row.three-columns,
-  .secretariat-row.four-columns {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-
-  .secretariat-member.large .member-card {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .secretariat-member.large .member-info {
-    text-align: center;
-  }
-
-  .member-title {
-    font-size: 1.3rem;
-  }
-
-  .secretariat-member.large .member-title {
-    font-size: 1.6rem;
-  }
-}
-
 .copy-notification {
   position: absolute;
   top: -50px;
@@ -2303,18 +1854,6 @@ body::before {
 
 .return-btn:hover .return-arrow {
   transform: translateX(-3px);
-}
-
-@media (max-width: 768px) {
-  .return-to-secretariat {
-    margin: 3rem auto;
-    padding: 0 1rem;
-  }
-
-  .return-btn {
-    padding: 0.875rem 1.5rem;
-    font-size: 0.95rem;
-  }
 }
 
 /* ===== REGISTER PAGE STYLES ===== */
@@ -2436,32 +1975,473 @@ body::before {
   box-shadow: 0 12px 35px rgba(223, 195, 111, 0.3);
 }
 
-@media (max-width: 768px) {
-  .registration-card {
-    padding: 3rem 2rem;
+/* ===== TABLET BREAKPOINT (768px - 1024px) ===== */
+@media (max-width: 1024px) {
+  .committees-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
   }
 
-  .priority-title {
-    font-size: 2rem;
-    margin-bottom: 0.75rem;
+  .secretariat-row.four-columns {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
   }
 
-  .deadline-text {
-    font-size: 1rem;
-    margin-bottom: 2rem;
+  .secretariat-row.three-columns {
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  .registration-buttons {
-    gap: 1rem;
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    padding: 2.5rem 2rem;
+    text-align: center;
   }
 
-  .register-btn {
-    padding: 1rem 2rem;
-    font-size: 0.95rem;
+  .footer-cta {
+    align-items: center;
+  }
+
+  .map-embed {
+    max-width: 600px;
+  }
+
+  .back-button {
+    position: relative;
+    left: 0;
+    top: 0;
+    transform: none;
+    margin-bottom: 1rem;
+  }
+
+  .committee-page-title {
+    margin-top: 1rem;
+  }
+
+  .nav-container {
+    margin-bottom: 1.5rem;
+  }
+
+  .main-header-title {
+    font-size: clamp(1.6rem, 4vw, 2rem);
+  }
+
+  .logo-section {
+    min-width: 150px;
+  }
+
+  .secgen-content {
+    gap: 3rem;
+  }
+
+  .secgen-image {
+    flex: 0 0 250px;
+  }
+
+  .secgen-photo {
+    height: 350px;
+  }
+
+  .resources-section .main-title,
+  .resources-section .subtitle {
+    text-align: center;
+  }
+
+  .resources-section {
+    margin-top: 2rem;
+    margin-bottom: 6rem;
+  }
+
+  .main-content {
+    margin-bottom: 6rem;
+  }
+
+  .confpres-luxury-container,
+  .secgen-luxury-container {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .confpres-image-container,
+  .secgen-image-container {
+    position: relative;
+    top: 0;
+  }
+
+  .confpres-luxury-photo,
+  .secgen-luxury-photo {
+    height: 400px;
+  }
+
+  .countdown-grid {
+    grid-template-columns: repeat(2, minmax(120px, 1fr));
+  }
+
+  .resources-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .eb-grid {
+    justify-content: center;
+  }
+
+  .eb-card {
+    width: 100%;
+    max-width: 360px;
+    height: 280px;
   }
 }
 
-@media (max-width: 480px) {
+/* ===== MOBILE BREAKPOINT (480px - 768px) ===== */
+@media (max-width: 768px) {
+  .header {
+    padding: 1rem 0;
+  }
+
+  .header-content {
+    padding: 0 1rem;
+  }
+
+  .nav-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .center-title {
+    position: relative;
+    left: auto;
+    top: auto;
+    transform: none;
+    width: 100%;
+    text-align: center;
+    margin: 0.5rem 0;
+    z-index: 5;
+  }
+
+  .logo {
+    height: 40px;
+  }
+
+  .logo-section {
+    min-width: auto;
+    order: 1;
+  }
+
+  .center-title {
+    order: 2;
+  }
+
+  .hamburger-container {
+    min-width: auto;
+    order: 3;
+  }
+
+  .main-header-title {
+    font-size: 1.3rem;
+  }
+
+  .header-subtitle {
+    font-size: 0.85rem;
+  }
+
+  .mobile-nav {
+    width: 280px;
+  }
+
+  .mobile-nav-content {
+    padding: 6rem 1.5rem 2rem;
+  }
+
+  .mobile-nav-link {
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+  }
+
+  /* Main Content */
+  .luxury-main {
+    padding: 3rem 0;
+  }
+
+  .home-stack {
+    gap: 1.5rem;
+  }
+
+  .confpres-luxury-section,
+  .secgen-luxury-section,
+  .countdown-section {
+    padding: 0 1rem;
+  }
+
+  .confpres-luxury-container,
+  .secgen-luxury-container {
+    padding: 2rem;
+    gap: 1.5rem;
+  }
+
+  .confpres-luxury-photo,
+  .secgen-luxury-photo {
+    height: 300px;
+  }
+
+  .confpres-luxury-title,
+  .secgen-luxury-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .confpres-luxury-text p,
+  .secgen-luxury-text p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    text-align: left;
+  }
+
+  .confpres-luxury-text p:last-of-type,
+  .secgen-luxury-text p:last-of-type {
+    margin-bottom: 1.5rem;
+  }
+
+  /* Countdown */
+  .countdown-container {
+    padding: 2rem 1rem;
+  }
+
+  .countdown-title {
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .countdown-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
+  }
+
+  .time-unit {
+    padding: 1rem 0.8rem;
+  }
+
+  .time-value {
+    font-size: 1.8rem;
+  }
+
+  .time-label {
+    font-size: 0.8rem;
+    margin-top: 0.3rem;
+  }
+
+  .countdown-subtitle {
+    font-size: 0.85rem;
+    margin-top: 1rem;
+  }
+
+  /* Committees */
+  .committees-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 0 1rem;
+  }
+
+  .committee-card {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .committee-image img {
+    height: 250px;
+  }
+
+  .committee-overlay {
+    padding: 1.5rem;
+  }
+
+  .committee-title {
+    font-size: 1.2rem;
+  }
+
+  .committee-desc {
+    font-size: 0.85rem;
+  }
+
+  /* Secretariat */
+  .secretariat-main {
+    padding: 2rem 0;
+  }
+
+  .secretariat-content {
+    padding: 0 1rem;
+  }
+
+  .secretariat-title {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+  }
+
+  .secretariat-row,
+  .secretariat-row.two-columns,
+  .secretariat-row.three-columns,
+  .secretariat-row.four-columns {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .member-card {
+    padding: 1.5rem;
+  }
+
+  .secretariat-member.large .member-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 2rem 1.5rem;
+    gap: 1rem;
+  }
+
+  .secretariat-member.large .member-info {
+    text-align: center;
+  }
+
+  .member-title {
+    font-size: 1.2rem;
+  }
+
+  .secretariat-member.large .member-title {
+    font-size: 1.4rem;
+  }
+
+  .member-photo {
+    width: 100px;
+    height: 100px;
+  }
+
+  .secretariat-member.large .member-photo {
+    width: 120px;
+    height: 120px;
+  }
+
+  .member-name {
+    font-size: 1.1rem;
+  }
+
+  .secretariat-member.large .member-name {
+    font-size: 1.3rem;
+  }
+
+  .member-position {
+    font-size: 0.9rem;
+  }
+
+  .member-description {
+    font-size: 0.9rem;
+  }
+
+  /* Committee Details */
+  .committee-main {
+    padding-top: 5rem;
+    padding-bottom: 2rem;
+  }
+
+  .committee-details {
+    padding: 0 1rem;
+  }
+
+  .committee-page-title {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .committee-info {
+    padding: 1.5rem;
+  }
+
+  .committee-description h2 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+
+  .committee-description h3 {
+    font-size: 1.1rem;
+    margin: 1.5rem 0 0.75rem 0;
+  }
+
+  .committee-description p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .committee-stats {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+    margin-top: 1.5rem;
+  }
+
+  .eb-grid {
+    gap: 1rem;
+  }
+
+  .eb-card {
+    width: 100%;
+    max-width: 100%;
+    height: 250px;
+  }
+
+  /* Footer */
+  .footer-inner {
+    padding: 2rem 1rem;
+    gap: 1.5rem;
+  }
+
+  .footer-cta {
+    gap: 1rem;
+  }
+
+  .footer-btn {
+    max-width: 100%;
+    padding: 0.875rem 1.25rem;
+    font-size: 0.9rem;
+  }
+
+  .footer-btn-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .map-embed {
+    max-width: 100%;
+    aspect-ratio: 16 / 9;
+  }
+
+  /* Resources */
+  .resources-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .resource-card {
+    max-width: 100%;
+    padding: 1rem;
+  }
+
+  .resource-title {
+    font-size: 1.1rem;
+  }
+
+  .resource-desc {
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .resource-btn {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.85rem;
+  }
+
+  /* Registration */
   .register-content {
     padding: 0 1rem;
   }
@@ -2472,15 +2452,237 @@ body::before {
   }
 
   .priority-title {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
   }
 
   .deadline-text {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .registration-buttons {
+    gap: 0.8rem;
+    max-width: 100%;
   }
 
   .register-btn {
     padding: 0.875rem 1.5rem;
-    font-size: 0.875rem;
+    font-size: 0.9rem;
   }
+
+  /* Return Button */
+  .return-to-secretariat {
+    margin: 2rem auto;
+    padding: 0 1rem;
+  }
+
+  .return-btn {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.9rem;
+  }
+
+  /* Main Content */
+  .main-content {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .page-header {
+    margin-bottom: 2rem;
+  }
+
+  .main-title {
+    font-size: 1.5rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  /* Placeholder */
+  .placeholder-main {
+    padding: 2rem 0;
+  }
+
+  .placeholder-content {
+    padding: 2rem 1.5rem;
+    max-width: 100%;
+  }
+
+  .placeholder-content.profile-layout {
+    max-width: 100%;
+    padding: 2rem 1.5rem;
+  }
+
+  .profile-photo {
+    width: 140px;
+    height: 140px;
+  }
+
+  .profile-name {
+    font-size: 1.5rem;
+  }
+
+  .profile-role {
+    font-size: 1rem;
+  }
+
+  .profile-description {
+    font-size: 0.95rem;
+  }
+
+  .placeholder-title {
+    font-size: 1.5rem;
+  }
+
+  .placeholder-text {
+    font-size: 1rem;
+  }
+
+  /* Welcome Section */
+  .welcome-content,
+  .secgen-content {
+    padding: 1.5rem;
+  }
+
+  .welcome-text,
+  .secgen-letter {
+    font-size: 0.95rem;
+    text-align: left;
+  }
+
+  .secgen-title {
+    font-size: 1.5rem;
+  }
+
+  .secgen-image {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+
+  .secgen-photo {
+    width: 100%;
+    height: 250px;
+  }
+
+  .home-main {
+    padding: 2rem 1rem;
+  }
+
+  .welcome-section {
+    margin-bottom: 3rem;
+  }
+
+  .secgen-section {
+    margin-bottom: 3rem;
+  }
+}
+
+/* ===== SMALL PHONE BREAKPOINT (max-width: 480px) ===== */
+@media (max-width: 480px) {
+  .header {
+    padding: 0.75rem 0;
+  }
+
+  .header-content {
+    padding: 0 0.75rem;
+  }
+
+  .nav-container {
+    gap: 0.25rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .center-title {
+    margin: 0.25rem 0;
+  }
+
+  .main-header-title {
+    font-size: 1.1rem;
+  }
+
+  .header-subtitle {
+    font-size: 0.75rem;
+  }
+
+  .logo {
+    height: 35px;
+  }
+
+  .hamburger-btn {
+    padding: 0.75rem;
+  }
+
+  .hamburger-line {
+    width: 20px;
+    height: 2px;
+  }
+
+  .hamburger-btn::after {
+    font-size: 0.6rem;
+    bottom: -6px;
+  }
+
+  .mobile-nav {
+    width: 100vw;
+  }
+
+  .mobile-nav-content {
+    padding: 5rem 1rem 2rem;
+    align-items: center;
+  }
+
+  .mobile-nav-link {
+    width: 100%;
+    text-align: center;
+    max-width: 280px;
+    font-size: 0.95rem;
+    padding: 0.7rem 1rem;
+  }
+}
+
+/* ===== EXTRA SMALL PHONE (max-width: 360px) ===== */
+@media (max-width: 360px) {
+  .center-title .main-header-title {
+    font-size: 1rem;
+  }
+
+  .confpres-luxury-title,
+  .secgen-luxury-title {
+    font-size: 1.2rem;
+  }
+
+  .countdown-title {
+    font-size: 1rem;
+  }
+
+  .time-value {
+    font-size: 1.3rem;
+  }
+
+  .secretariat-title {
+    font-size: 1.3rem;
+  }
+
+  .committee-page-title {
+    font-size: 1.2rem;
+  }
+
+  .priority-title {
+    font-size: 1.2rem;
+  }
+
+  .placeholder-title {
+    font-size: 1.2rem;
+  }
+
+  .main-title {
+    font-size: 1.2rem;
+  }
+}
+
+/* Prevent body scroll when mobile menu is open */
+body.menu-open {
+  overflow: hidden;
 }
