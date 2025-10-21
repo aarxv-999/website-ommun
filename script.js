@@ -122,18 +122,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (hamburgerBtn && mobileNav) {
     hamburgerBtn.addEventListener("click", () => {
-      console.log("[v0] Hamburger clicked, current active state:", hamburgerBtn.classList.contains("active"))
-
       hamburgerBtn.classList.toggle("active")
       mobileNav.classList.toggle("active")
 
-      console.log("[v0] After toggle, active state:", hamburgerBtn.classList.contains("active"))
-
-      // Prevent body scroll when menu is open
       if (mobileNav.classList.contains("active")) {
-        document.body.style.overflow = "hidden"
+        document.body.classList.add("menu-open")
       } else {
-        document.body.style.overflow = ""
+        document.body.classList.remove("menu-open")
       }
     })
 
@@ -143,7 +138,7 @@ document.addEventListener("DOMContentLoaded", () => {
       link.addEventListener("click", () => {
         hamburgerBtn.classList.remove("active")
         mobileNav.classList.remove("active")
-        document.body.style.overflow = ""
+        document.body.classList.remove("menu-open")
       })
     })
 
@@ -152,7 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!hamburgerBtn.contains(e.target) && !mobileNav.contains(e.target)) {
         hamburgerBtn.classList.remove("active")
         mobileNav.classList.remove("active")
-        document.body.style.overflow = ""
+        document.body.classList.remove("menu-open")
       }
     })
 
@@ -161,7 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (e.key === "Escape" && mobileNav.classList.contains("active")) {
         hamburgerBtn.classList.remove("active")
         mobileNav.classList.remove("active")
-        document.body.style.overflow = ""
+        document.body.classList.remove("menu-open")
       }
     })
   }
